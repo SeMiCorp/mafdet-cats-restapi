@@ -41,6 +41,22 @@ public class CatResource {
                 "Rambotron",
                 LocalDate.parse("2015-06-01"),
                 "male"));
+        cats.add(new Cat(UUID.fromString("a7590cc5-e02d-421b-ac0a-06c7f76bb634"),
+                "Zuzanna",
+                LocalDate.parse("2017-01-01"),
+                "female"));
+        cats.add(new Cat(UUID.fromString("00d3841c-bb51-49cf-abde-909547ee2b9b"),
+                "Gustav",
+                LocalDate.parse("2012-08-01"),
+                "male"));
+        cats.add(new Cat(UUID.fromString("2a046e78-bb2b-4f28-b1a9-e4ae4a1c2f46"),
+                "Helmut",
+                LocalDate.parse("2018-01-01"),
+                "male"));
+        cats.add(new Cat(UUID.fromString("3afc050b-be0d-4829-81a7-0c35d0cd7ff3"),
+                "Czucz",
+                LocalDate.parse("2020-05-01"),
+                "male"));
 
         return cats;
     }
