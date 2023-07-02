@@ -3,15 +3,14 @@ on:
   push:
     branches:
       - main
-      - master
-      - "**ticket-**"
+      - "**issue-**"
 
 jobs:
   build-image:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REGISTRY: quay.io/sewerynmi
-      DOCKER_REPO: quarkus-microservices-vintagestore-books
+      DOCKER_REGISTRY: quay.io/semicorp
+      DOCKER_REPO: mafdet-cats-restapi
       IMAGE_TAG: default
     steps:
       - name: Checkout
