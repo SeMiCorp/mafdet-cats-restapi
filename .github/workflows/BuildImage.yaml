@@ -1,0 +1,77 @@
+name: Build Docker Image (GraalVM)
+on:
+  push:
+    branches:
+      - main
+      - master
+      - "**ticket-**"
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: quay.io/sewerynmi
+      DOCKER_REPO: quarkus-microservices-vintagestore-books
+      IMAGE_TAG: default
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Graalvm
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.3.0'
+          java-version: '17'
+          components: 'native-image'
+          cache: 'maven'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Project
+        run: |
+          mvn package -Dquarkus.package.type=legacy-jar
+
+      - name: Log in to Quay.io
+        uses: redhat-actions/podman-login@v1
+        with:
+          username: ${{ secrets.QUAY_ROBOT_NAME }}
+          password: ${{ secrets.QUAY_ROBOT_TOKEN }}
+          registry: ${{ env.DOCKER_REGISTRY }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Quay.io
+        uses: redhat-actions/podman-login@v1
+        with:
+          username: ${{ secrets.QUAY_ROBOT_NAME }}
+          password: ${{ secrets.QUAY_ROBOT_TOKEN }}
+          registry: ${{ env.DOCKER_REGISTRY }}
+
+      - name: Create TAGS
+        run: |
+          if [ "$GITHUB_REF_NAME" = "master" ]
+          then
+            TAG=latest
+          elif [[ $GITHUB_REF_NAME =~ (ticket-[0-9]*) ]]
+          then
+            TAG=${match/#E/E}${BASH_REMATCH/#E/E}
+          else
+            TAG=${GITHUB_SHA}
+          fi
+          echo "IMAGE_TAG=$TAG" >> $GITHUB_ENV
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: src/main/docker/Dockerfile.legacy-jar
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          tags: |
+            ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ github.sha }}
+            ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}:${{ env.IMAGE_TAG }}
