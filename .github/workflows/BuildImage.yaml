@@ -51,7 +51,7 @@ jobs:
 
       - name: Create TAGS
         run: |
-          if [ "$GITHUB_REF_NAME" = "master" ]
+          if [ "$GITHUB_REF_NAME" = "main" ]
           then
             TAG=latest
           elif [[ $GITHUB_REF_NAME =~ (ticket-[0-9]*) ]]
