@@ -34,29 +34,17 @@ public class CatResource {
     public static List<Cat> generateListOfCats(){
         List<Cat> cats = new ArrayList<>();
         cats.add(new Cat(UUID.fromString("96ccfa6d-180a-4df4-927a-062b3e184ed0"),
-                "Mortimer",
-                LocalDate.parse("2015-07-01"),
-                "male"));
+                "Maximilian", LocalDate.parse("2015-07-01"), "male", "NW1 1AA", true));
         cats.add(new Cat(UUID.fromString("c719c5c1-4f7e-4ec5-ab47-5cc38ce7a39f"),
-                "Rambotron",
-                LocalDate.parse("2015-06-01"),
-                "male"));
+                "Rolpf", LocalDate.parse("2015-06-01"), "male", "N15 5AB", true));
         cats.add(new Cat(UUID.fromString("a7590cc5-e02d-421b-ac0a-06c7f76bb634"),
-                "Zuzanna",
-                LocalDate.parse("2017-01-01"),
-                "female"));
+                "Mika", LocalDate.parse("2017-01-01"),"female", "NW1 1AA", true));
         cats.add(new Cat(UUID.fromString("00d3841c-bb51-49cf-abde-909547ee2b9b"),
-                "Gustav",
-                LocalDate.parse("2012-08-01"),
-                "male"));
+                "Gustap", LocalDate.parse("2012-08-01"),"male", "N21 4TA", false));
         cats.add(new Cat(UUID.fromString("2a046e78-bb2b-4f28-b1a9-e4ae4a1c2f46"),
-                "Helmut",
-                LocalDate.parse("2018-01-01"),
-                "male"));
+                "Helmut", LocalDate.parse("2018-01-01"), "male", "N21 4TA", true));
         cats.add(new Cat(UUID.fromString("3afc050b-be0d-4829-81a7-0c35d0cd7ff3"),
-                "Czucz",
-                LocalDate.parse("2020-05-01"),
-                "male"));
+                "Melvin", LocalDate.parse("2020-05-01"), "male", "NW1 5QA", true));
 
         return cats;
     }

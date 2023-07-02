@@ -22,15 +22,14 @@ public class Cat {
     @Schema(required = true)
     @JsonbProperty("id")
     private UUID id;
-
     @Schema(required = true)
     private String name;
-
     @JsonbProperty("dob")
     @JsonbDateFormat("yyyy-MM-dd")
     @Schema(implementation = String.class, format = "date")
     private LocalDate dob;
-
-    private String sex;
+    private String gender;
+    private String postcode;
+    private Boolean chip;
 
 }
